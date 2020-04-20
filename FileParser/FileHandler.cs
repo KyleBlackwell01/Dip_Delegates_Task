@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Diagnostics;
 
 
-namespace FileParser {
-    public class FileHandler {
+namespace FileParser 
+{
+    public class FileHandler 
+    {
        
         public FileHandler() { }
 
@@ -14,8 +18,11 @@ namespace FileParser {
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public List<string> ReadFile(string filePath) {
+        public List<string> ReadFile(string filePath) 
+        {
             List<string> lines = new List<string>();
+
+            lines = File.ReadLines(filePath).ToList();
 
             return lines; //-- return result here
         }
@@ -27,8 +34,16 @@ namespace FileParser {
         /// <param name="filePath"></param>
         /// <param name="delimeter"></param>
         /// <param name="rows"></param>
-        public void WriteFile(string filePath, char delimeter, List<List<string>> rows) {
+        public void WriteFile(string filePath, char delimeter, List<List<string>> rows) 
+        {
+            StringBuilder dataTest = new StringBuilder();
 
+            foreach(List<string> line in rows)
+            {
+                dataTest.AppendLine(String.Join(delimeter.ToString(), line));
+            }
+
+            File.WriteAllText(filePath, dataTest.ToString());
             
         }
         
@@ -38,8 +53,14 @@ namespace FileParser {
         /// <param name="data"></param>
         /// <param name="delimiter"></param>
         /// <returns></returns>
-        public List<List<string>> ParseData(List<string> data, char delimiter) {
+        public List<List<string>> ParseData(List<string> data, char delimiter) 
+        {
             List<List<string>> result = new List<List<string>>();
+
+            foreach(string line in data)
+            {
+                result.Add(line.Split(delimiter).ToList());
+            }
 
             return result; //-- return result here
         }
@@ -49,9 +70,12 @@ namespace FileParser {
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public List<List<string>> ParseCsv(List<string> data) {
-            
-            return new List<List<string>>();  //-- return result here
+        public List<List<string>> ParseCsv(List<string> data) 
+        {
+
+            return ParseData(data, ',');
+
+            /*return new List<List<string>>();*/  //-- return result here
         }
     }
 }
