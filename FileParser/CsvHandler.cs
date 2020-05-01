@@ -23,9 +23,9 @@ namespace Delegate_Exercise
             List<string> fileData = file.ReadFile(readFile);
             List<List<string>> csvData = file.ParseCsv(fileData);
 
-            DataParser dataParser = new DataParser();
-            dataHandler += dataParser.StripWhiteSpace;
-            dataHandler += dataParser.StripQuotes;
+            //DataParser dataParser = new DataParser();
+            //dataHandler += dataParser.StripWhiteSpace;
+            //dataHandler += dataParser.StripQuotes;
 
             List<List<string>> result = dataHandler.Invoke(csvData);
 
